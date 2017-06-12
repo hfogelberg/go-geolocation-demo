@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Go Geolocation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <h1>Go Geolocation Example</h1>
+
+  </body>
+
+  <script>
+  getLocation();
+
+  function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          console.log(position);
+          var lat = position.coords.latitude;
+          var lon = position.coords.longitude;
+          console.log("lat: " + lat);
+          console.log("Lon: " + lon);
+          handleGeoDat(lat, lon);
+
+        });
+      } else { 
+        handleNoGeolocation(true)
+    }
+  }
+
+  function handleGeoDat(lat, lon) {
+    var url = "/location/"+lat+"/"+lon;
+    window.location.replace(url);
+  }
+
+  function handleNoGeolocation(errFlag) {
+    if (errorFlag) {
+     var content = 'Error: The Geolocation service failed.';
+    } else {
+     var content = 'Error: Your browser doesn\'t support geolocation.';
+    }
+    alert(content);
+  }
+  </script>
+</html>
