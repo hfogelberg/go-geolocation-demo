@@ -14,12 +14,20 @@ func main() {
 	mux := mux.NewRouter()
 	mux.HandleFunc("/", home)
 	mux.HandleFunc("/location/{lat}/{lon}", location)
+	mux.HandleFunc("/search", search)
 	http.ListenAndServe(":8080", mux)
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
 	var templates = template.Must(template.New("index").ParseFiles("templates/index.html"))
 	if err := templates.ExecuteTemplate(w, "index.html", nil); err != nil {
+		panic(err)
+	}
+}
+
+func search(w http.ResponseWriter, r *http.Request) {
+	var templates = template.Must(template.New("search").ParseFiles("templates/search.html"))
+	if err := templates.ExecuteTemplate(w, "search.html", nil); err != nil {
 		panic(err)
 	}
 }
